@@ -1,0 +1,103 @@
+<!--
+	pdumpvergelijken - vergelijk pdump bestanden
+    Copyright (C) 2022 Gemeente Den Haag, Netherlands
+    Developed by Jasper Vries
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+ 
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+ 
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>pdumpvergelijken</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bundled/jquery-ui/jquery-ui.min.css">
+    <script src="bundled/jquery/jquery.min.js"></script>
+    <script src="bundled/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <h1>pdumpvergelijken</h1>
+
+    <div id="menu">
+        <button id="menu-new">Nieuw</button>
+        <button id="menu-open">Open bestand...</button>
+        <button id="menu-import-old">Importeer oude pdump...</button>
+        <button id="menu-import-new">Importeer nieuwe pdump...</button>
+        <button id="menu-saveas">Opslaan als...</button>
+        <button id="menu-help">Help...</button>
+    </div>
+    
+    <div id="fileinputdialog">
+        <p>Kies bestand van schijf of plak inhoud van tekstbestand in tekstvak.</p>
+        <input type="file" id="file" class="ui-button ui-widget ui-corner-all"><br>
+        <textarea id="input"></textarea>
+    </div>
+
+    <div id="output">
+        <table id="outputtable">
+            <thead>
+                <tr>
+                    <th>Object</th><th>Variabele</th><th>Oude waarde</th><th>Nieuwe waarde</th><th>Verschil</th><th>Opmerking</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    
+    <p><a href="https://github.com/VCDH/pdumpvergelijken/">Broncode op GitHub</a></p>
+
+    <div id="loadingscreencontainer">
+        <div id="loadingscreenoverlay"></div>
+        <div id="loadingscreentext"><span>Laden...</span></div>
+    </div>
+
+    <div id="helpdialog">
+        <p>pdumpvergelijken is een programma om twee CCOL pdumpbestanden naast elkaar te vergelijken. Verschillen worden door middel van kleuren inzichtelijk gemaakt en het is mogelijk om bij iedere variabele een opmerking te maken om desgewenst een verschil toe te lichten. Het resultaat inclusief opmerkingen kan worden bewaard in een bestand om later weer te kunnen inlezen.</p>
+
+        <h1>Snel aan de slag</h1>
+        <p>Lees eerst een pdump-bestand in via <i>Importeer oude pdump...</i> en daarna een tweede pdump-bestand via <i>Importeer nieuwe pdump...</i>. Er wordt een tabel samengesteld waarbij beide bestanden naast elkaar vergeleken worden. In de tabel worden rijen getoond met de namen van de variabelen met hierachter de oude en nieuwe waarde. Verder wordt aangegeven of de oude en nieuwe waarde van elkaar verschillen. Dit wordt ook met de kleur van de rij aangegeven. In een groene rij zijn de oude en nieuwe waarde gelijk aan elkaar. Wanneer de oude en nieuwe waarde verschillen, is de rij rood. Dit is ook het geval wanneer de waarde niet voorkomt in de oude of de nieuwe pdump. In de laatste kolom kan een vrije tekst worden ingevoerd. Deze tekst wordt bewaard wanneer het resultaat wordt opgeslagen.</p>
+
+        <h1>Toelichting van de menuopties</h1>
+        <dl>
+            <dt>Nieuw</dt>
+            <dd>Wis alle invoer om opnieuw te kunnen beginnen. Alle niet-opgeslagen wijzigingen gaan verloren.</dd>
+            <dt>Open bestand...</dt>
+            <dd>Open een bestand dat is opgeslagen door pdumpvergelijken. Je hebt deze optie alleen nodig als je wilt verder gaan met een eerder opgeslagen vergelijking. Bij een nieuwe vergelijking gebruik je de importeer-functies.</dd>
+            <dt>Importeer oude pdump...</dt>
+            <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de oude situatie. Er kan een pdump-bestand worden geselecteerd dat is opgeslagen op de lokale schijf, of de inhoud van een pdump-bestand kan vanaf het klembord worden geplakt.</dd>
+            <dt>Importeer nieuwe pdump...</dt>
+            <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de nieuwe situatie. Als deze optie niet beschikbaar is, moet eerst een oud pdump-bestand worden ingelezen.</dd>
+            <dt>Opslaan als...</dt>
+            <dd>Sla de weergegeven resultaten op in een bestand, dat later kan worden ingelezen via <i>Open bestand...</i>. Het bestand wordt opgeslagen met een JSON-bestandsindeling en kan desgewenst ook in andere applicaties worden verwerkt die hiermee overweg kunnen.</dd>
+            <!--<dt>Exporteer selectie...</dt>
+            <dd>Exporteer de geselecteerde rijen naar CSV-formaat.</dd>-->
+        </dl>
+
+        <h1>Nooit-gestelde vragen, omdat de antwoorden hier al staan</h1>
+        <dl>
+            <dt>Wat gebeurt er als ik een pdump-bestand opnieuw inlees?</dt>
+            <dd>Wanneer een pdump-bestand opnieuw wordt ingelezen, dan worden de reeds ingelezen waarden overschreven. Eventuele opmerkingen blijven behouden, maar zijn logischerwijs mogelijk niet meer van toepassing op de nieuwe ingelezen waarde. <!--TODO--> Waarden van variabelen die niet meer voorkomen in het nieuw ingelezen pdump-bestand worden niet leeg gemaakt. Daardoor is het raadzaam om voorzichtig te zijn met het opnieuw inlezen van pdump-bestanden. Bij twijfel kan beter een volledig nieuwe vergelijking worden gemaakt.</dd>
+            <dt>Ik zie iets raars in de variabelen of hun waarden, hoe komt dit?</dt>
+            <dd>pdumpvergelijken doet zijn best om pdump-bestanden zo goed mogelijk in te lezen, ook wanneer er andere CCOL-uitvoer in het pdump-bestand aanwezig is. Als er rare zaken zichtbaar zijn, dan zitten er waarschijnlijk ook rare zaken in het pdump-bestand. Controleer de inhoud van het pdump-bestand met een plain text editor en schoon dit zo nodig eerst op.</dd>
+        </dl>
+    </div>
+
+    <script src="gui.js"></script>
+    <script src="filehandling.js"></script>
+    <script src="pdumpvergelijken.js"></script>
+</body>
+</html>
