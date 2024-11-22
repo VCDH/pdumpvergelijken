@@ -1,6 +1,9 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+h1 {
+    margin: 0;
+}
 
 textarea {
     width: 800px;

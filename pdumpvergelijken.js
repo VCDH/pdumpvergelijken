@@ -1,6 +1,6 @@
 /*
 	pdumpvergelijken - vergelijk pdump bestanden
-    Copyright (C) 2022 Gemeente Den Haag, Netherlands
+    Copyright (C) 2022, 2024 Gemeente Den Haag, Netherlands
     Developed by Jasper Vries
  
     This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,9 @@
 */
 
 var table = [];
+var file_read = [];
+file_read['old'] = false;
+file_read['new'] = false;
 
 function loadFileContentsHandle(type) {
     var file = document.getElementById('input').value;
@@ -48,6 +51,8 @@ function saveAsButtonClickHandle() {
 }
 
 function newButtonClickHandle() {
+    file_read['old'] = false;
+    file_read['new'] = false;
     //clear table
     table = [];
     $('#outputtable tbody').html('');
@@ -63,6 +68,13 @@ function read_pdump(type, pdump) {
     //​2: "prio2fc48"
     //​3: "123/ct"
     //​​4: "/ct"
+    //set if content is read
+    if (matches.length > 0) {
+        file_read[type] = true;
+    }
+    else {
+        file_read[type] = false;
+    }
     //read into table
     matches.forEach((item) => {
         //check if row in table exists
@@ -72,19 +84,9 @@ function read_pdump(type, pdump) {
             && (row.var == item[2])) {
                 //update array
                 row[type] = item[3];
-                //update html table
-                var tdofsset = 0;
-                switch (type) {
-                    case 'old':
-                        tdofsset = 2;
-                        break;
-                    case 'new':
-                        tdofsset = 3;
-                        break;
-                }
-                $('#outputtable tbody tr:eq(' + (row.id) + ') td:eq(' + (tdofsset) + ')').text(item[3]);
                 //prevent also pushing new row
                 rowupdated = true;
+                break;
             }
         };
         
@@ -97,28 +99,35 @@ function read_pdump(type, pdump) {
                 var: item[2],
                 [type]: item[3]
             });
-            //append html table
-            switch (type) {
-                case 'old':
-                    $('#outputtable tbody').append('<tr><td>' + item[1] + '</td><td>' + item[2] + '</td><td>' + item[3] + '</td><td></td><td></td><td></td></tr>');
-                    break;
-                case 'new':
-                    $('#outputtable tbody').append('<tr><td>' + item[1] + '</td><td>' + item[2] + '</td><td></td><td>' + item[3] + '</td><td></td><td></td></tr>');
-                    break;
-            }
         }
     });
     //update table row classes
-    if (initialtablelength > 0) {
+    /*if (initialtablelength > 0) {
         setTimeout(function() { setLoadingScreen('Gegevens verwerken...'); }, 10);
         setTimeout(function() { setRowClasses(); }, 200);
         setTimeout(function() { setLoadingScreen(null); }, 300);
+    }*/
+    //output table to user
+    populateTable();
+}
+
+/*
+* Set table contents
+*/
+function populateTable() {
+    //only when both old and new file have been read
+    if ((file_read['old'] == true) && (file_read['new'] == true)) {
+        for (let i = 0; i < table.length; i++) {
+            if (table[i].old !== table[i].new)
+            $('#outputtable tbody').append('<tr><td>' + table[i].obj + '</td><td>' + table[i].var + '</td><td>' + table[i].old + '</td><td>' + table[i].new + '</td></tr>');
+
+        }
     }
 }
 
 /*
 * Parse table and set classes according to value content
-*/
+*
 function setRowClasses() {
     //loop table rows
     $('#outputtable tbody > tr').each(function(index, tr) {
@@ -144,7 +153,7 @@ function setRowClasses() {
             $('#outputtable tbody tr:eq(' + (index) + ') td:eq(4)').html('fout');
         }
     });
-}
+}*/
 
 /*
 * document ready
@@ -152,7 +161,7 @@ function setRowClasses() {
 $(function() {
     /*
     * editable comment field
-    */
+    *
     $('#outputtable tbody').on('click', 'td:nth-child(6)', function() {
         //check if there is an input and if not add it
         if (!$(this).children('input').length) {
@@ -177,12 +186,12 @@ $(function() {
         }
         //set focus
         $(this).children('input').focus();
-    });
+    });*/
 });
 
  /*
  * load saved file
- */
+ *
  function loadSavedFile (json) {
     //clear table
     newButtonClickHandle();
@@ -208,4 +217,4 @@ $(function() {
         return false;
     }
     return true;
-}
+}*/

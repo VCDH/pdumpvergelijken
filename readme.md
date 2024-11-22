@@ -1,5 +1,5 @@
 # pdumpvergelijken
-pdumpvergelijken is een programma om twee CCOL pdumpbestanden naast elkaar te vergelijken. Verschillen worden door middel van kleuren inzichtelijk gemaakt en het is mogelijk om bij iedere variabele een opmerking te maken om desgewenst een verschil toe te lichten. Het resultaat inclusief opmerkingen kan worden bewaard in een bestand om later weer te kunnen inlezen.
+pdumpvergelijken is een programma om twee CCOL pdumpbestanden naast elkaar te vergelijken. De verschillen tussen beide bestanden worden getoond, terwijl gelijke waarden verborgen blijven.
 
 ## Aanleiding
 We hadden een tooltje PDump Comp versie 0.1.0 [beta] uit 2015, maar deze leest pdump-bestanden niet helemaal goed in. Mogelijk is er intussen een verbeterde versie van dat tooltje, maar het was leuker om te proberen om zelf een webbased variant te maken dan om na te gaan of er inderdaad een nieuwere versie is. Bovendien kan 90% van de broncode van pdumpvergelijken dienen als basis voor een ontruimingstijdenvergelijkingstool.
@@ -9,7 +9,7 @@ De broncode van pdumpvergelijken is vrijgegeven onder de voorwaarde van de
 GNU General Public License versie 3 of hoger.
 
     pdumpvergelijken - vergelijk pdump bestanden
-    Copyright (C) 2022 Gemeente Den Haag, Netherlands
+    Copyright (C) 2022, 2024 Gemeente Den Haag, Netherlands
     Developed by Jasper Vries
  
     This program is free software: you can redistribute it and/or modify

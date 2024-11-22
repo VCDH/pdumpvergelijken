@@ -1,6 +1,6 @@
 /*
 	pdumpvergelijken - vergelijk pdump bestanden
-    Copyright (C) 2022 Gemeente Den Haag, Netherlands
+    Copyright (C) 2022, 2024 Gemeente Den Haag, Netherlands
     Developed by Jasper Vries
  
     This program is free software: you can redistribute it and/or modify
@@ -107,13 +107,16 @@ function openImportDialog(type) {
     active_type = type;
     var title;
     if (type == 'open') {
-        title = 'Open opgeslagen pss-bestand';
+        title = 'Open opgeslagen json-bestand';
+        $('input#file').attr('accept', '.json,text/json');
     }
     else if (type == 'old') {
         title = 'Importeer oud pdump bestand';
+        $('input#file').attr('accept', '.txt,text/');
     }
     else if (type == 'new') {
         title = 'Importeer nieuw pdump bestand';
+        $('input#file').attr('accept', '.txt,text/');
     }
     $('#fileinputdialog').dialog('option', 'title', title);
     $('#fileinputdialog').dialog('open');
@@ -146,5 +149,5 @@ function openHelpDialog()  {
 */
 window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
-    e.returnValue = '';
+    //e.returnValue = '';
 });
