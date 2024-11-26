@@ -86,3 +86,11 @@ tr.val-err td {
 dt {
     font-weight: bold;
 }
+p.warning {
+    margin: 4px 0;
+    padding: 3px;
+    background-color: wheat;
+    border: 1px solid goldenrod;
+    border-radius: 4px;
+    display: none;
+}

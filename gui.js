@@ -112,11 +112,11 @@ function openImportDialog(type) {
     }
     else if (type == 'old') {
         title = 'Importeer oud pdump bestand';
-        $('input#file').attr('accept', '.txt,text/');
+        $('input#file').attr('accept', '.txt,.c,text/plain');
     }
     else if (type == 'new') {
         title = 'Importeer nieuw pdump bestand';
-        $('input#file').attr('accept', '.txt,text/');
+        $('input#file').attr('accept', '.txt,.c,text/plain');
     }
     $('#fileinputdialog').dialog('option', 'title', title);
     $('#fileinputdialog').dialog('open');
@@ -134,7 +134,7 @@ function setLoadingScreen(text = null) {
         $('#loadingscreencontainer').show();
         $('#loadingscreencontainer span').text(text);
     }
-    console.log('loading screen ' + text);
+    //console.log('loading screen ' + text);
 }
 
 /*
