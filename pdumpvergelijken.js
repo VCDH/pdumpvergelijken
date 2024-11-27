@@ -88,7 +88,7 @@ function update_table(type, object, variable, value) {
 }
 
 function read_pdump(type, pdump) { 
-    let initialtablelength = table.length;
+    //let initialtablelength = table.length;
     let matches = pdump.matchAll(/([A-Z]+) ([A-Za-z0-9_ ]+): (-?\d+(\/[a-z]{2,3})?)\s?/g);
     matches = Array.from(matches);
     //example result:

@@ -138,7 +138,6 @@ function setLoadingScreen(text = null) {
         $('#loadingscreencontainer').show();
         $('#loadingscreencontainer span').text(text);
     }
-    //console.log('loading screen ' + text);
 }
 
 /*
@@ -153,5 +152,4 @@ function openHelpDialog()  {
 */
 window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
-    //e.returnValue = '';
 });

@@ -13,9 +13,6 @@ textarea {
 button, input[type=checkbox] {
     margin-top: 1em;
 }
-/*input[type=checkbox]:disabled {
-    color: #5B5B66;
-}*/
 
 #outputtable {
     border-collapse: collapse;
