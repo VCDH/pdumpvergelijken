@@ -38,6 +38,8 @@
         <button id="menu-import-new">Importeer nieuwe pdump...</button>
         <!--<button id="menu-saveas">Opslaan als...</button>-->
         <button id="menu-help">Help...</button>
+        <input type="checkbox" name="menu-hide-undefined" id="menu-hide-undefined">
+        <label for="menu-hide-undefined">Verberg undefined</label>
     </div>
 
     <p id="tabcwarning" class="warning">Het vergelijken van tab.c bestanden is onvolledig. Je kunt ontbrekende zaken doorgeven via GitHub of rechtstreeks aan Jasper. Geef aan wat je mist en voeg de bestanden die je vergeleek bij de melding.</p>
@@ -83,18 +85,24 @@
             <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de oude situatie. Er kan een pdump-bestand worden geselecteerd dat is opgeslagen op de lokale schijf, of de inhoud van een pdump-bestand kan vanaf het klembord worden geplakt.</dd>
             <dt>Importeer nieuwe pdump...</dt>
             <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de nieuwe situatie. Als deze optie niet beschikbaar is, moet eerst een oud pdump-bestand worden ingelezen.</dd>
+            <dt>Help...</dt>
+            <dd>Opent dit venster.</dd>
+            <dt>Verberg undefined</dt>
+            <dd>Wanneer een waarde niet in beide bestanden voorkomt, dan wordt deze als <i>undefined</i> aangegeven in de kolom van het bestand waarin de waarde ontbreekt. Met deze schakeloptie kunnen verschilrijen van waarden die niet in beide bestanden voorkomen worden verborgen of opnieuw zichtbaar worden gemaakt.</dd>
             <!--<dt>Opslaan als...</dt>
             <dd>Sla de weergegeven resultaten op in een bestand, dat later kan worden ingelezen via <i>Open bestand...</i>. Het bestand wordt opgeslagen met een JSON-bestandsindeling en kan desgewenst ook in andere applicaties worden verwerkt die hiermee overweg kunnen.</dd>
             <dt>Exporteer selectie...</dt>
             <dd>Exporteer de geselecteerde rijen naar CSV-formaat.</dd>-->
         </dl>
 
-        <h1>Nooit-gestelde vragen, omdat de antwoorden hier al staan</h1>
+        <h1>Nog-niet-eerder-gestelde-vragen</h1>
         <dl>
             <dt>Wat gebeurt er als ik een pdump-bestand opnieuw inlees?</dt>
             <dd>Wanneer een pdump-bestand opnieuw wordt ingelezen, dan worden de reeds ingelezen waarden overschreven. <!--Eventuele opmerkingen blijven behouden, maar zijn logischerwijs mogelijk niet meer van toepassing op de nieuwe ingelezen waarde. <!--TODO--> Waarden van variabelen die niet meer voorkomen in het nieuw ingelezen pdump-bestand worden niet leeg gemaakt. Daardoor is het raadzaam om voorzichtig te zijn met het opnieuw inlezen van pdump-bestanden. Bij twijfel kan beter een volledig nieuwe vergelijking worden gemaakt.</dd>
             <dt>Ik zie iets raars in de variabelen of hun waarden, hoe komt dit?</dt>
             <dd>pdumpvergelijken doet zijn best om pdump-bestanden zo goed mogelijk in te lezen, ook wanneer er andere CCOL-uitvoer in het pdump-bestand aanwezig is. Als er rare zaken zichtbaar zijn, dan zitten er waarschijnlijk ook rare zaken in het pdump-bestand. Controleer de inhoud van het pdump-bestand met een plain text editor en schoon dit zo nodig eerst op.</dd>
+            <dt>Kan ik ook een tab.c bestand inlezen?</dt>
+            <dd>Ja, dat kan. Hou er rekening mee dat een tab.c met name op het gebied van V-Log instellingen niet zuiver te vergelijken is met een pdump. Ook dient er rekening mee te worden gehouden dat er aanvullende instellingen aanwezig kunnen zijn in een tab.add bestand. Technisch gezien kunnen er ook twee tab.c bestanden vergeleken worden, maar hou er in dat geval rekening mee dat niet alle instellingen (o.a. garantietijden) worden gelezen.</dd>
         </dl>
     </div>
 

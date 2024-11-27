@@ -69,6 +69,7 @@ $(function() {
     $('#menu-import-new').button();
     $('#menu-saveas').button();
     $('#menu-help').button();
+    $('#menu-hide-undefined').checkboxradio({ disabled: true });
     setFirstRun();
     /*
     * button onclick handles
@@ -95,6 +96,9 @@ $(function() {
     $('#menu-help').click(function() {
         openHelpDialog();
     });
+    $('#menu-hide-undefined').click(function() {
+        hideShowUndefined($('#menu-hide-undefined').prop('checked'));
+    });  
     //hide loading screen
     setLoadingScreen(null);
 });

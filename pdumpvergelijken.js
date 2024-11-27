@@ -57,6 +57,8 @@ function newButtonClickHandle() {
     table = [];
     $('#outputtable tbody').html('');
     $('#tabcwarning').hide();
+    $('#menu-hide-undefined').prop('checked', false).checkboxradio( "refresh" );
+    $('#menu-hide-undefined').checkboxradio("disable");
 }
 
 //insert/update table entry
@@ -269,9 +271,22 @@ function populateTable() {
     if ((file_read['old'] == true) && (file_read['new'] == true)) {
         for (let i = 0; i < table.length; i++) {
             if (table[i].old !== table[i].new)
-            $('#outputtable tbody').append('<tr><td>' + table[i].obj + '</td><td>' + table[i].var + '</td><td>' + table[i].old + '</td><td>' + table[i].new + '</td></tr>');
+            $('#outputtable tbody').append('<tr' + (((typeof table[i].old == 'undefined') || (typeof table[i].new == 'undefined')) ? ' class="undef"' : '') + '><td>' + table[i].obj + '</td><td>' + table[i].var + '</td><td>' + table[i].old + '</td><td>' + table[i].new + '</td></tr>');
 
         }
+        $('#menu-hide-undefined').checkboxradio("enable");
+    }
+}
+
+/*
+* Show/hide undefined rows
+*/
+function hideShowUndefined(state) {
+    if (state == true) {
+        $('#outputtable tbody tr.undef').hide();
+    }
+    else {
+        $('#outputtable tbody tr.undef').show();
     }
 }
 
